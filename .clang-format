@@ -1,0 +1,41 @@
+# Cairn C++ style. Boring on purpose; see CLAUDE.md "Language and toolkit".
+BasedOnStyle: LLVM
+Standard: c++20
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+BreakTemplateDeclarations: Yes
+BreakBeforeBraces: Attach
+PointerAlignment: Left
+ReferenceAlignment: Left
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^"'          # our own headers first
+    Priority: 1
+  - Regex: '^<Q'         # then Qt
+    Priority: 2
+  - Regex: '^<'          # then the standard library and everything else
+    Priority: 3
+SortIncludes: CaseSensitive
+SpaceAfterTemplateKeyword: true
+FixNamespaceComments: true
+# Qt's class-body macros are statements, not expressions. Without this a
+# one-line class or a bad merge formats as `Q_OBJECT public : ...`.
+StatementMacros:
+  - Q_OBJECT
+  - Q_GADGET
+  - Q_PROPERTY
+  - Q_ENUM
+  - Q_ENUM_NS
+  - Q_NAMESPACE
+  - Q_INTERFACES
+  - Q_DECLARE_METATYPE
+  - QML_ELEMENT
+  - QML_NAMED_ELEMENT
+  - QML_SINGLETON
+  - QML_UNCREATABLE

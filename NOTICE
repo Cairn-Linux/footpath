@@ -1,0 +1,9 @@
+Footpath
+Copyright 2026 Cairn Linux contributors
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+Footpath began inside the Cairn Linux repository (Cairn-Linux/cairn) as its
+restricted shell and was split out on 2026-09-05 (ADR-0014 there). The name
+"Cairn Linux" and the stacked-stones mark are trademarks of the Cairn Linux
+project and are not part of Footpath.
