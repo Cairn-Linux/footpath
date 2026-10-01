@@ -35,8 +35,8 @@ public:
     // The doors, from C++ hosts. Takes effect at the next reset().
     void setDoors(const QList<World::Door>& doors);
     QList<World::Door> doors() const;
-    // The doors, one at a time, from QML hosts. `kind` is make, practice or
-    // machine; anything else is machine.
+    // The doors, one at a time, from QML hosts. `kind` is make, practice,
+    // games or machine; anything else is machine.
     Q_INVOKABLE void addDoor(const QString& title, const QString& kind, const QStringList& exec);
     Q_INVOKABLE void clearDoors();
 

@@ -8,8 +8,8 @@
 
 namespace {
 
-constexpr std::array<World::Kind, 3> doorKinds = {World::Kind::Make, World::Kind::Practice,
-                                                  World::Kind::Machine};
+constexpr std::array<World::Kind, 4> doorKinds = {World::Kind::Make, World::Kind::Practice,
+                                                  World::Kind::Games, World::Kind::Machine};
 
 } // namespace
 
@@ -95,6 +95,8 @@ QString World::folderName(Kind kind) {
         return QStringLiteral("make");
     case Kind::Practice:
         return QStringLiteral("practice");
+    case Kind::Games:
+        return QStringLiteral("games");
     case Kind::Machine:
         return QStringLiteral("machine");
     case Kind::Folder:
@@ -105,7 +107,8 @@ QString World::folderName(Kind kind) {
 }
 
 bool World::isDoor(const Node& node) {
-    return node.kind == Kind::Make || node.kind == Kind::Practice || node.kind == Kind::Machine;
+    return node.kind == Kind::Make || node.kind == Kind::Practice || node.kind == Kind::Games ||
+           node.kind == Kind::Machine;
 }
 
 QList<World::Node> World::children(const QString& folder) const {

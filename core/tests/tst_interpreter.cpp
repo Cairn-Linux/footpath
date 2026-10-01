@@ -34,6 +34,25 @@ private slots:
         QVERIFY(!reply.launch);
     }
 
+    void gamesAreDoorsInTheirOwnFolder() {
+        const QStringList exec{QStringLiteral("scummvm"), QStringLiteral("puttputt")};
+        Interpreter shell(World(
+            {{.title = QStringLiteral("Putt-Putt"), .kind = World::Kind::Games, .exec = exec}},
+            {}));
+        QCOMPARE(texts(shell.run(QStringLiteral("ls"))), QStringList{QStringLiteral("games")});
+        QCOMPARE(firstLine(shell.run(QStringLiteral("open putt-putt"))),
+                 QStringLiteral("putt-putt is in games. Type cd games first."));
+        QVERIFY(shell.run(QStringLiteral("cd games")).lines.isEmpty());
+        const Reply listing = shell.run(QStringLiteral("ls"));
+        QCOMPARE(texts(listing), QStringList{QStringLiteral("putt-putt")});
+        QCOMPARE(listing.lines.first().icon, Reply::Icon::Games);
+        const Reply opened = shell.run(QStringLiteral("open putt-putt"));
+        QVERIFY(opened.launch.has_value());
+        const Reply::Launch launch = opened.launch.value_or(Reply::Launch{});
+        QCOMPARE(launch.title, QStringLiteral("Putt-Putt"));
+        QCOMPARE(launch.exec, exec);
+    }
+
     void emptyLineSaysNothing() {
         Interpreter shell(fixtureWorld());
         QVERIFY(shell.run(QString()).lines.isEmpty());

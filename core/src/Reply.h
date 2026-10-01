@@ -12,7 +12,7 @@
 // each with an icon slot so a pre-reader can tell a folder from a thing to
 // open; a launch is carried out by whoever hosts the shell, never here.
 struct Reply {
-    enum class Icon : std::uint8_t { None, Folder, Make, Practice, Machine, Note };
+    enum class Icon : std::uint8_t { None, Folder, Make, Practice, Games, Machine, Note };
 
     struct Line {
         QString text;

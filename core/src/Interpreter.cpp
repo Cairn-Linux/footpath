@@ -16,6 +16,8 @@ Reply::Icon iconFor(World::Kind kind) {
         return Reply::Icon::Make;
     case World::Kind::Practice:
         return Reply::Icon::Practice;
+    case World::Kind::Games:
+        return Reply::Icon::Games;
     case World::Kind::Machine:
         return Reply::Icon::Machine;
     case World::Kind::Note:

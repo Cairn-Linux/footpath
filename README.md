@@ -31,6 +31,8 @@ Landed so far:
   inside Cairn's launcher.
 - **Split (2026-09-05):** this repository; the session takes doors from any
   host and the surface is themed by properties.
+- **Games (2026-09-30):** a fourth door kind with its own `games` folder and
+  an outlined chip (Cairn ADR-0024, Cairn-Linux/cairn#97, #76 there).
 
 Next: a standalone window with a demo world (DESIGN §7), a `--home` layout
 file, L2's words.
@@ -71,7 +73,8 @@ Terminal {
 ```
 
 Give the session its doors with `setDoors()` from C++ or `addDoor()` from
-QML, then `reset()` for a fresh sitting. The session starts nothing: it
+QML, then `reset()` for a fresh sitting. A door is a shortcut: a title, a
+kind (`make`, `practice`, `games` or `machine`) and the command to run. The session starts nothing: it
 emits `launchRequested` and the host decides.
 
 ## The six words

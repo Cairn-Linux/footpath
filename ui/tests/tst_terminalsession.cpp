@@ -133,12 +133,13 @@ private slots:
         TerminalSession session(this);
         session.addDoor(QStringLiteral("Draw"), QStringLiteral("make"),
                         {QStringLiteral("tuxpaint")});
-        session.addDoor(QStringLiteral("Odd"), QStringLiteral("games"), {});
+        session.addDoor(QStringLiteral("Putt-Putt"), QStringLiteral("games"), {});
+        session.addDoor(QStringLiteral("Odd"), QStringLiteral("toys"), {});
         session.reset();
         session.run(QStringLiteral("ls"));
         QCOMPARE(texts(session.output()).mid(1),
-                 (QStringList{QStringLiteral("make"), QStringLiteral("machine"),
-                              QStringLiteral("home")}));
+                 (QStringList{QStringLiteral("make"), QStringLiteral("games"),
+                              QStringLiteral("machine"), QStringLiteral("home")}));
         session.clearDoors();
         session.reset();
         session.run(QStringLiteral("ls"));
