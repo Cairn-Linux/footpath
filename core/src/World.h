@@ -14,9 +14,9 @@
 // node has a path like "make/draw" or "home/sam/notes"; the root is "".
 class World {
 public:
-    enum class Kind : std::uint8_t { Folder, Make, Practice, Machine, Note };
+    enum class Kind : std::uint8_t { Folder, Make, Practice, Games, Machine, Note };
 
-    // A program the host will start. `kind` is Make, Practice or Machine.
+    // A program the host will start. `kind` is Make, Practice, Games or Machine.
     struct Door {
         QString title;
         Kind kind;

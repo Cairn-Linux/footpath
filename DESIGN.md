@@ -75,12 +75,15 @@ changes anything, so there is nothing to break.
 What `ls` shows at the root:
 
 ```
-make   practice   machine   home
+make   practice   games   machine   home
 ```
 
-The first three are **doors**: the programs the child can open, grouped by
-kind as the launcher groups them (ADR-0013). They come from the host, and
-the terminal cannot change them.
+The first four hold the **doors**: the programs the child can open, grouped
+by kind as the launcher groups them (ADR-0013; `games` since Cairn's
+ADR-0024). A folder appears only when the host gives it a door. They come
+from the host, and the terminal cannot change them.
+A door is a shortcut: a title, a kind and the command the host runs.
+Nothing is copied or moved, so a game stays wherever its store put it.
 
 `home` is a **small fictional computer**: a few folders and notes laid out
 the way a real Linux home is, so that `cd home`, `cd notes`, `ls` and
@@ -196,7 +199,9 @@ The current table is in `README.md`.
 - **Icons on `ls`.** Every line carries its kind, so a door shows the kind's
   colour and mark, a folder shows a folder, a note shows a note, and a
   drawing in `pictures` shows the drawing. A pre-reader can `ls` and `open` by
-  picture alone.
+  picture alone. A game's chip is an outline, not a filled square, because
+  its colour is the host's quiet card colour and a filled chip would look
+  like a note.
 - **Up arrow recalls.** History is the last twenty lines of this session,
   nothing more.
 - **Nothing scrolls away.** Output is short by design; the surface keeps the

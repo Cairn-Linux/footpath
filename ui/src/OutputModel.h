@@ -17,7 +17,7 @@ class OutputModel : public QAbstractListModel {
 
 public:
     // Mirrors Reply::Icon in the shell, which has no Qt meta-object.
-    enum class Icon : std::uint8_t { None, Folder, Make, Practice, Machine, Note };
+    enum class Icon : std::uint8_t { None, Folder, Make, Practice, Games, Machine, Note };
     Q_ENUM(Icon)
 
     enum Role : std::uint16_t { TextRole = Qt::UserRole + 1, IconRole, IsInputRole };

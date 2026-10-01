@@ -69,6 +69,20 @@ TestCase {
         compare(input.text, "");
     }
 
+    function test_aGameIsAnOutlineNotAFilledChip() {
+        terminal.session.addDoor("Putt-Putt", "games", ["scummvm"]);
+        terminal.session.reset();
+        type("cd games");
+        type("ls");
+        const output = findChild(terminal, "terminalOutput");
+        tryVerify(() => output.itemAtIndex(2) !== null);
+        const chip = findChild(output.itemAtIndex(2), "chip");
+        verify(chip !== null);
+        compare(chip.border.width, terminal.chipLineWidth);
+        compare(chip.color.a, 0);
+        verify(Qt.colorEqual(chip.border.color, terminal.gamesColor));
+    }
+
     function test_openAsksTheHost() {
         type("cd make");
         type("open draw");

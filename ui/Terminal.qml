@@ -20,12 +20,15 @@ Rectangle {
     property color noteColor: "#EDEDED"
     property color makeColor: "#D9A03C"
     property color practiceColor: "#7B9A6D"
+    property color gamesColor: "#EDEDED"
     property color machineColor: "#4A7F95"
     property string fontFamily: "monospace"
     property real fontSize: 18
     property real lineHeight: 1.7
     property real margin: 28
     property real chipRadius: 5
+    // A games chip is an outline this wide, so a game never looks like a note.
+    property real chipLineWidth: 2
 
     // Escape, or the child typed exit.
     signal exited
@@ -47,6 +50,8 @@ Rectangle {
             return terminal.makeColor;
         case OutputModel.Practice:
             return terminal.practiceColor;
+        case OutputModel.Games:
+            return terminal.gamesColor;
         case OutputModel.Machine:
             return terminal.machineColor;
         case OutputModel.Note:
@@ -83,11 +88,16 @@ Rectangle {
             spacing: terminal.fontSize / 2
 
             Rectangle {
+                readonly property bool outlined: line.icon === OutputModel.Games
+
+                objectName: "chip"
                 width: terminal.fontSize * 0.8
                 height: width
                 radius: terminal.chipRadius
                 anchors.verticalCenter: parent.verticalCenter
-                color: terminal.iconColor(line.icon)
+                color: outlined ? Qt.alpha(terminal.groundColor, 0) : terminal.iconColor(line.icon)
+                border.width: outlined ? terminal.chipLineWidth : 0
+                border.color: terminal.iconColor(line.icon)
             }
 
             Text {

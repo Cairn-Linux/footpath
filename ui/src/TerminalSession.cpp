@@ -16,6 +16,9 @@ World::Kind kindNamed(const QString& kind) {
     if (kind == QStringLiteral("practice")) {
         return World::Kind::Practice;
     }
+    if (kind == QStringLiteral("games")) {
+        return World::Kind::Games;
+    }
     return World::Kind::Machine;
 }
 

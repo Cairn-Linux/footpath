@@ -35,6 +35,23 @@ private slots:
         QCOMPARE(World::slug(title), expected);
     }
 
+    void everyDoorKindHasItsFolderInAFixedOrder() {
+        const World world(
+            {{.title = QStringLiteral("Terminal"), .kind = World::Kind::Machine, .exec = {}},
+             {.title = QStringLiteral("Putt-Putt"), .kind = World::Kind::Games, .exec = {}},
+             {.title = QStringLiteral("Practice"), .kind = World::Kind::Practice, .exec = {}},
+             {.title = QStringLiteral("Draw"), .kind = World::Kind::Make, .exec = {}}},
+            {});
+        QCOMPARE(names(world.children(QString())),
+                 (QStringList{QStringLiteral("make"), QStringLiteral("practice"),
+                              QStringLiteral("games"), QStringLiteral("machine")}));
+        const std::optional<World::Node> found = world.find(QStringLiteral("games/putt-putt"));
+        QVERIFY(found.has_value());
+        const World::Node game = found.value_or(World::Node{});
+        QCOMPARE(game.kind, World::Kind::Games);
+        QVERIFY(World::isDoor(game));
+    }
+
     void rootHoldsKindFoldersInOrderThenHome() {
         QCOMPARE(names(fixtureWorld().children(QString())),
                  (QStringList{QStringLiteral("make"), QStringLiteral("practice"),
