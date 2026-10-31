@@ -73,8 +73,6 @@ Rectangle {
         interactive: false
         clip: true
         model: terminal.session.output
-        // The newest line is always in view; the child never scrolls.
-        onCountChanged: positionViewAtEnd()
         onHeightChanged: positionViewAtEnd()
 
         delegate: Row {
@@ -109,6 +107,19 @@ Rectangle {
                 lineHeight: terminal.lineHeight
                 color: line.isInput ? terminal.hintColor : terminal.textColor
             }
+        }
+    }
+
+    // The newest line is always in view; the child never scrolls. The list
+    // hears of new lines before it has laid them out, and moving to the end
+    // then stops at the old end, so the move waits until they are. It
+    // follows new lines, not the count: once the transcript is full, each
+    // new line pushes the oldest out and the count stays the same.
+    Connections {
+        target: terminal.session.output
+
+        function onRowsInserted() {
+            Qt.callLater(output.positionViewAtEnd);
         }
     }
 
