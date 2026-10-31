@@ -69,6 +69,39 @@ TestCase {
         compare(input.text, "");
     }
 
+    // The child never scrolls, so each answer must be in view as soon as
+    // Enter is pressed.
+    function typeAndSeeTheAnswer(line) {
+        const output = findChild(terminal, "terminalOutput");
+        type(line);
+        const last = output.count - 1;
+        tryVerify(() => output.itemAtIndex(last) !== null, 1000, line + ": the newest line was never made");
+        const newest = output.itemAtIndex(last);
+        tryVerify(() => newest.mapToItem(output, 0, newest.height).y <= output.height + 1, 1000, line + ": the newest line is below the view");
+    }
+
+    function test_theNewestLineIsInViewOnceTheScreenIsFull() {
+        const output = findChild(terminal, "terminalOutput");
+        for (let i = 0; i < 6; ++i)
+            type("help");
+        tryVerify(() => output.contentHeight > output.height);
+        for (const line of ["ls", "cd make", "ls", "help", "cd ..", "ls"])
+            typeAndSeeTheAnswer(line);
+    }
+
+    // The transcript keeps only its newest lines. Past that, each new line
+    // pushes the oldest out, so the number of lines stays the same.
+    function test_theNewestLineIsInViewPastTheKeptLines() {
+        const lines = terminal.session.output;
+        let before = -1;
+        while (lines.rowCount() !== before) {
+            before = lines.rowCount();
+            type("help");
+        }
+        for (const line of ["ls", "cd make", "ls", "help", "cd ..", "ls"])
+            typeAndSeeTheAnswer(line);
+    }
+
     function test_aGameIsAnOutlineNotAFilledChip() {
         terminal.session.addDoor("Putt-Putt", "games", ["scummvm"]);
         terminal.session.reset();
